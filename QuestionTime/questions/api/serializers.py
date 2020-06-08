@@ -15,7 +15,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     def get_created_at(self, instance):
         return instance.created_at.strftime('%B %d %Y')
 
-    def likes_count(self, instance);
+    def likes_count(self, instance):
         return instance.voters.count()
 
     def get_user_has_voted(self, instance):
