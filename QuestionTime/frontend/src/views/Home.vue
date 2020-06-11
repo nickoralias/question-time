@@ -8,7 +8,7 @@
         </p>
         <h2>
           <router-link
-            :to="{ name: 'Question', params: { slug: question.slug } }"
+            :to="{ name: 'question', params: { slug: question.slug } }"
             class="question-link"
           >{{ question.content }}
           </router-link>
