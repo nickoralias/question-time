@@ -6,12 +6,21 @@
         <span class="author-name">{{ question.author }}</span>
       </p>
       <p>{{ question.created_at }}</p>
+      <hr>
+    </div>
+    <div class="container">
+      <AnswerComponent
+        v-for="(answer, index) in answers"
+        :answer="answer"
+        :key="index"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { apiService } from "../common/api.service.js"
+import { apiService } from "@/common/api.service.js"
+import AnswerComponent from "@/components/Answer.vue";
 export default {
   name: "Question",
   props: {
@@ -20,9 +29,13 @@ export default {
       required: true
     }
   },
+  components: {
+    AnswerComponent
+  },
   data() {
     return {
-      question: {}
+      question: {},
+      answers: []
     }
   },
   methods: {
@@ -36,12 +49,20 @@ export default {
           this.question = data;
           this.setPageTitle(data.content);
         })
+    },
+    getQuestionAnswers() {
+      let endpoint = `/api/questions/${this.slug}/answers/`;
+      apiService(endpoint)
+        .then(data => {
+          this.answers = data.results;
+        })
     }
   },
   created() {
-    this.getQuestionData()
+    this.getQuestionData();
+    this.getQuestionAnswers();
   }
-}
+};
 </script>
 
 <style scoped>
@@ -49,5 +70,4 @@ export default {
   font-weight: bold;
   color: #DC3545;
 }
-
 </style>
