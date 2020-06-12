@@ -48,6 +48,9 @@ export default {
           endpoint += `${ this.slug }/`;
           method = "PUT";
         }
+        console.log(this.slug)
+        console.log(endpoint)
+        console.log(method)
         apiService(endpoint, method, { content: this.question_body })
           .then(question_data => {
             this.$router.push({
