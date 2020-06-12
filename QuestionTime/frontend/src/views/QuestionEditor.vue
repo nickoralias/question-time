@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { apiService } from "@/common/api.service.js"
+import { apiService } from "@/common/api.service.js";
 export default {
   name: "QuestionEditor",
   props: {
@@ -33,14 +33,14 @@ export default {
     return {
       question_body: null,
       error: null
-    }
+    };
   },
   methods: {
     onSubmit() {
       if (!this.question_body) {
-        this.error = "You can't send an empty question!"
+        this.error = "You can't send an empty question!";
       } else if (this.question_body.length > 240) {
-        this.error = "Ensure this field has no more than 240 characters!"
+        this.error = "Ensure this field has no more than 240 characters!";
       } else {
         let endpoint = "/api/questions/";
         let method = "POST";
