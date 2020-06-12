@@ -27,19 +27,12 @@ export default {
     id: {
       type: Number,
       required: true
-    },
-    previousAnswer: {
-      type: String,
-      required: true
-    },
-    questionSlug: {
-      type: String,
-      required: true
     }
   },
   data() {
     return {
-      answerBody: this.previousAnswer,
+      questionSlug: null,
+      answerBody: null,
       error: null
     }
   },
@@ -62,9 +55,12 @@ export default {
   async beforeRouteEnter(to, from, next) {
     let endpoint = `/api/answers/${to.params.id}/`;
     let data = await apiService(endpoint);
-    to.params.previousAnswer = data.body;
-    to.params.questionSlug = data.question_slug;
-    return next();
+    // to.params.previousAnswer = data.body;
+    // to.params.questionSlug = data.question_slug;
+    return next(vm => (
+      vm.answerBody = data.body,
+      vm.questionSlug = data.question_slug
+    ));
   }
 };
 </script>
